@@ -1,0 +1,42 @@
+cmake_minimum_required(VERSION 3.14)
+project(cliprogress
+        LANGUAGES CXX
+        VERSION 0.1.0)
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+include(CTest)
+option(BUILD_EXAMPLES "Build example program" ON)
+
+add_library(cliprogress STATIC)
+add_library(cliprogress::cliprogress ALIAS cliprogress)
+
+target_compile_features(cliprogress PUBLIC cxx_std_20)
+target_include_directories(cliprogress PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+
+
+include(external/external.cmake)
+
+find_package(Threads REQUIRED)
+find_package(fmt REQUIRED)
+find_package(TBB REQUIRED)
+
+target_link_libraries(cliprogress
+    PUBLIC
+        termcontrol::termcontrol
+        Threads::Threads
+        TBB::tbb
+        Pal::Sigslot
+)
+
+add_subdirectory(src)
+
+if (BUILD_TESTING)
+    add_subdirectory(tests)
+endif()
+
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif()
