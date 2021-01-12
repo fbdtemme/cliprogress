@@ -40,11 +40,14 @@ public:
         if (elapsed_double < 0.005) [[unlikely]]
             return;
 
+//        Expects(progress.value() >= previous_value_);
+
         auto current_rate = (progress.value() - previous_value_) / elapsed_double;
         auto history_sum = std::reduce(history_.begin(), history_.end());
         auto history_average = history_.size() ? history_sum / history_.size() : 0;
-        rate_ = (current_rate * alpha_) + (history_average * (1-alpha_));
-        Ensures(rate_ >= 0);
+        // make sure the rate is positive, this can be negative it the progress value
+        // decreases for some weird reason
+        rate_ = std::max(0., (current_rate * alpha_) + (history_average * (1-alpha_)));
 
         if (history_.size() == history_max_size_) {
             history_.pop_front();
