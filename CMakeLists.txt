@@ -29,6 +29,7 @@ target_link_libraries(cliprogress
         Threads::Threads
         TBB::tbb
         Pal::Sigslot
+        gsl::gsl-lite-v1
 )
 
 add_subdirectory(src)

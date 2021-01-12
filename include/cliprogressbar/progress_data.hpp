@@ -9,7 +9,7 @@
 #include <span>
 #include <string_view>
 
-
+#include <gsl-lite/gsl-lite.hpp>
 #include <fmt/format.h>
 #include <fmt/chrono.h>
 
@@ -83,9 +83,11 @@ public:
 
     void update(double new_value) noexcept
     {
+        Expects(new_value <= max_value_);
         auto t = std::chrono::system_clock::now();
+
         // Update base progress data
-        if (auto ts = time_started() == time_point()) [[unlikely]] {
+        if (bool ts = time_started() == time_point(); ts) [[unlikely]] {
             time_started_.store(t, std::memory_order_relaxed);
             return;
         }
