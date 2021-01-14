@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
 
-find_package(Catch2 REQUIRED)
 include(Catch)
 
 add_executable(cliprogress-tests
@@ -8,11 +7,6 @@ add_executable(cliprogress-tests
         widgets/label.cpp
         widgets/bar.cpp
         application.cpp
-
-
-        #    test_throbber.cpp
-#    test_formatters.cpp
-#    test_bar_rendered.cpp
 )
 
 target_link_libraries(cliprogress-tests cliprogress Catch2::Catch2)

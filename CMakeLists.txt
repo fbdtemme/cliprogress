@@ -20,7 +20,6 @@ target_include_directories(cliprogress PUBLIC
 include(external/external.cmake)
 
 find_package(Threads REQUIRED)
-find_package(fmt REQUIRED)
 find_package(TBB REQUIRED)
 
 target_link_libraries(cliprogress
