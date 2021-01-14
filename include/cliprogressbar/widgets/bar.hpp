@@ -13,62 +13,9 @@
 #include <termcontrol/detail/format.hpp>
 
 #include "cliprogressbar/widget.hpp"
+#include "cliprogressbar/functional/progress_bar.hpp"
 
 namespace cliprogress {
-
-namespace tc = termcontrol;
-namespace rng = std::ranges;
-
-/// Define symbols for drawing a progress bar.
-/// The complete_frames member supports fractional symbols.
-struct bar_symbols
-{
-    std::string left_seperator = "|";
-    std::string right_seperator = "|";
-    std::string incomplete = " ";
-    std::string complete = "=";
-    std::string complete_lead = "=";
-    std::span<std::string> complete_frames = {};
-};
-
-/// Type holding color and emphasis information for the bar of a progress_bar.
-struct bar_style
-{
-    termcontrol::text_style left_separator  = {};
-    termcontrol::text_style right_separator  = {};
-    termcontrol::text_style complete   = {};
-    termcontrol::text_style incomplete = {};
-};
-
-
-///// Progress frames for progress indicators with high precision.
-namespace bar_frames {
-
-inline auto horizontal_blocks = std::array<std::string, 10> {
-        "▏",
-        "▎",
-        "▍",
-        "▌",
-        "▋",
-        "▊",
-        "▉",
-        "▉",
-        "▉",
-        "█",
-};
-
-inline auto vertical_blocks = std::array<std::string, 8> {
-        "▁",                ///< Lower one eighth block
-        "▂",                ///< Lower one quarter block
-        "▃",                ///< Lower three eighths block
-        "▄",                ///< Lower half block
-        "▅",                ///< Lower five eighths block
-        "▆",                ///< Lower three quarters block
-        "▇",                ///< Lower seven eighths block
-        "█",                ///< Full block
-};
-
-}
 
 using namespace std::string_view_literals;
 
@@ -84,9 +31,9 @@ private:
     };
 
 public:
-    bar(const bar_symbols& symbols, const bar_style& style, std::size_t size = 40)
-        : symbols_(symbols)
-        , style_(style)
+    bar(bar_symbols symbols, bar_style style, std::size_t size = 40)
+        : symbols_(std::move(symbols))
+        , style_(std::move(style))
         , size_(size)
         , state_incomplete_(size)
     {
