@@ -41,7 +41,7 @@
 # Modified by Robert Maynard from the original OGRE source
 #
 #-------------------------------------------------------------------
-# This file is part of the cmake build system for OGRE
+# This file is part of the CMake build system for OGRE
 #     (Object-oriented Graphics Rendering Engine)
 # For the latest info, see http://www.ogre3d.org/
 #
@@ -60,7 +60,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # See the License for more information.
 #=============================================================================
-# (To distribute this file outside of cmake, substitute the full
+# (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
 
@@ -232,7 +232,7 @@ if (WIN32 AND MSVC)
         set(COMPILER_PREFIX "vc11")
     elseif(MSVC_VERSION EQUAL 1800)
         set(COMPILER_PREFIX "vc12")
-    elseif(MSVC_VERSION EQUAL 1900)
+    elseif(MSVC_VERSION GREATER_EQUAL 1900)
         set(COMPILER_PREFIX "vc14")
     endif ()
 
@@ -277,6 +277,9 @@ endif ()
 # check compiler ABI
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     set(COMPILER_PREFIX)
+    if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.8)
+        list(APPEND COMPILER_PREFIX "gcc4.8")
+    endif()
     if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.7)
         list(APPEND COMPILER_PREFIX "gcc4.7")
     endif()
@@ -286,6 +289,9 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     list(APPEND COMPILER_PREFIX "gcc4.1")
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(COMPILER_PREFIX)
+    if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.0) # Complete guess
+        list(APPEND COMPILER_PREFIX "gcc4.8")
+    endif()
     if (NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS 3.6)
         list(APPEND COMPILER_PREFIX "gcc4.7")
     endif()

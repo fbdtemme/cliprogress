@@ -6,7 +6,7 @@ project(cliprogress
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(CTest)
-option(BUILD_EXAMPLES "Build example program" ON)
+option(CLIPROGRESS_BUILD_EXAMPLES "Build example program" ON)
 
 add_library(cliprogress STATIC)
 add_library(cliprogress::cliprogress ALIAS cliprogress)
