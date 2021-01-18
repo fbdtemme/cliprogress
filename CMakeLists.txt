@@ -7,6 +7,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(CTest)
 option(CLIPROGRESS_BUILD_EXAMPLES "Build example program" ON)
+option(CLIPROGRESS_BUILD_TESTING "Build tests" ON)
 
 add_library(cliprogress STATIC)
 add_library(cliprogress::cliprogress ALIAS cliprogress)
@@ -33,10 +34,10 @@ target_link_libraries(cliprogress
 
 add_subdirectory(src)
 
-if (BUILD_TESTING)
+if (CLIPROGRESS_BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
-if (BUILD_EXAMPLES)
+if (CLIPROGRESS_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()

@@ -11,20 +11,6 @@ function(log_not_found library)
 endfunction()
 
 
-find_package(fmt QUIET)
-if (fmt_FOUND OR TARGET fmt::fmt)
-    log_found(fmt)
-else()
-    log_not_found(fmt)
-    FetchContent_Declare(
-            fmt
-            GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-            GIT_TAG        master
-    )
-    set(FORMAT_BUILD_TESTING OFF)
-    set(FMT_INSTALL ON)
-    FetchContent_MakeAvailable(fmt)
-endif()
 
 find_package(PalSigslot QUIET)
 if (PalSigslot_FOUND OR TARGET Pal::Sigslot)
@@ -37,7 +23,8 @@ else()
             GIT_REPOSITORY https://github.com/palacaze/sigslot.git
             GIT_TAG        master
     )
-    # disable tests
+    set(SIGSLOT_COMPILE_EXAMPLES OFF)
+    set(SIGSLOT_COMPILE_TESTS OFF)
     FetchContent_MakeAvailable(PalSigslot)
 endif()
 
@@ -64,19 +51,23 @@ else()
             GIT_REPOSITORY https://github.com/fbdtemme/termcontrol.git
             GIT_TAG        main
     )
+    set(TERMCONTROL_INSTALL ON)
+    set(TERMCONTROL_BUILD_TESTS OFF)
     FetchContent_MakeAvailable(termcontrol)
 endif()
 
-find_package(Catch2 QUIET)
-if (Catch2_FOUND)
-    log_found(Catch2)
-else()
-    log_not_found(Catch2)
-    FetchContent_Declare(
-            Catch2
-            GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-            GIT_TAG        v2.x
-    )
-    FetchContent_MakeAvailable(Catch2)
-    set(CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib" ${CMAKE_MODULE_PATH})
+if (CLIPROGRESS_BUILD_TESTING)
+    find_package(Catch2 QUIET)
+    if (Catch2_FOUND)
+        log_found(Catch2)
+    else()
+        log_not_found(Catch2)
+        FetchContent_Declare(
+                Catch2
+                GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+                GIT_TAG        v2.x
+        )
+        FetchContent_MakeAvailable(Catch2)
+        set(CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib" ${CMAKE_MODULE_PATH})
+    endif()
 endif()
