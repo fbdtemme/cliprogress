@@ -73,7 +73,7 @@ private:
     std::jthread event_loop_;
     std::atomic<termcontrol::terminal_size> term_size_;
     terminal_writer writer_ {};
-    event_queue event_queue_ {};
+    event_queue event_queue_;
 
 #if defined(_WIN32) || defined(__MINGW64__)
 #else

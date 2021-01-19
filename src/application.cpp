@@ -10,7 +10,7 @@ using namespace std::chrono_literals;
 namespace tc = termcontrol;
 
 application::application()
-    : event_queue_()
+    : event_queue_(128)
 #if defined(_WIN32) || defined(__MINGW64__)
 #else
      , signal_notifier_(get_posix_signal_notifier())

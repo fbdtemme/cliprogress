@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
-#include <tbb/concurrent_queue.h>
 
+
+#include "cliprogressbar/mpmcqueue.hpp"
 #include "cliprogressbar/events/event.hpp"
 
 namespace cliprogress {
@@ -12,6 +13,6 @@ public:
     std::weak_ptr<widget> destination;
 };
 
-using event_queue = tbb::concurrent_bounded_queue<event_item>;
+using event_queue = rigtorp::mpmc::Queue<event_item>;
 
 }

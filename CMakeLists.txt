@@ -27,7 +27,6 @@ target_link_libraries(cliprogress
     PUBLIC
         termcontrol::termcontrol
         Threads::Threads
-        TBB::tbb
         Pal::Sigslot
         gsl::gsl-lite-v1
 )
