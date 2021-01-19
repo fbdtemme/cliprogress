@@ -1,3 +1,6 @@
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
+
 #pragma once
 #include <functional>
 #include <thread>
@@ -181,3 +184,5 @@ inline std::shared_ptr<posix_signal_notifier> get_posix_signal_notifier()
 }
 
 }
+
+#endif

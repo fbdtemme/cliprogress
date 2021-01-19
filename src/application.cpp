@@ -11,8 +11,9 @@ namespace tc = termcontrol;
 
 application::application()
     : event_queue_()
-#ifndef _WIN32
-    , signal_notifier_(get_posix_signal_notifier())
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
+     , signal_notifier_(get_posix_signal_notifier())
 #endif
     , term_size_(tc::get_terminal_size())
 {
@@ -36,8 +37,10 @@ void application::start()
     // start dispatching signals to the event queue.
 
     register_signals();
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     signal_notifier_->start();
-
+#endif
     auto term_size = termcontrol::get_terminal_size();
     for_each_widget([cols=term_size.cols](const auto& w) {
         w->allocate_size(cols > 0 ? cols : 120);
@@ -57,14 +60,20 @@ void application::start()
 // Blok until the event loop stops running
 void application::wait()
 {
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     signal_notifier_->wait();
+#endif
     if (event_loop_.joinable())
         event_loop_.join();
 }
 
 void application::request_stop()
 {
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     signal_notifier_->request_stop();
+#endif
     // wake the queue if blocked on waiting for next event
     event_queue_.push(event_item{
         .value=std::make_shared<termination_event>(),
@@ -131,7 +140,10 @@ application::~application() noexcept {
 
     // disconnect signal notifier to make so signals handlers do not get called after the application is destroyed,
     // if another application is started that reused the same signal notifier.
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     signal_notifier_->disconnect(SIGWINCH);
+#endif
 
     // restore line wrapping
     writer().write(tc::format<tc::def::set_mode>(tc::dec_mode::autowrap));
@@ -139,7 +151,10 @@ application::~application() noexcept {
 
 void application::register_signals()
 {
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     signal_notifier_->connect(SIGWINCH, [this](){ this->resize_handler(); });
+#endif
 }
 
 void application::resize_handler()

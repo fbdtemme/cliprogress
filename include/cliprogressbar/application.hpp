@@ -5,12 +5,16 @@
 #include <memory>
 
 #include "cliprogressbar/progress_data.hpp"
-#include "cliprogressbar/posix_signal_notifier.hpp"
 #include "cliprogressbar/events/event.hpp"
 #include "cliprogressbar/event_queue.hpp"
 #include "cliprogressbar/widget.hpp"
 #include "cliprogressbar/periodic_timer.hpp"
 #include "cliprogressbar/terminal_writer.hpp"
+
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
+#include "cliprogressbar/posix_signal_notifier.hpp"
+#endif
 
 namespace cliprogress {
 
@@ -71,7 +75,8 @@ private:
     terminal_writer writer_ {};
     event_queue event_queue_ {};
 
-#ifndef _WIN32
+#if defined(_WIN32) || defined(__MINGW64__)
+#else
     std::shared_ptr<posix_signal_notifier> signal_notifier_ {};
 #endif
 
