@@ -20,12 +20,9 @@ target_include_directories(cliprogress PUBLIC
 
 include(external/external.cmake)
 
-find_package(Threads REQUIRED)
-
 target_link_libraries(cliprogress
     PUBLIC
         termcontrol::termcontrol
-        Threads::Threads
         Pal::Sigslot
         gsl::gsl-lite-v1
 )
