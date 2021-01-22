@@ -1,5 +1,10 @@
 #pragma once
 
+#include <string>
+#include <span>
+#include <array>
+#include <termcontrol/termcontrol.hpp>
+
 namespace cliprogress {
 
 namespace tc = termcontrol;
