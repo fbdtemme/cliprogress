@@ -10,17 +10,23 @@ using namespace std::chrono_literals;
 namespace tc = termcontrol;
 
 application::application()
-    : event_queue_(128)
+    : application(std::cout)
+{}
+
+application::application(std::ostream& os)
+        : event_queue_(128)
 #if defined(_WIN32) || defined(__MINGW64__)
 #else
-     , signal_notifier_(get_posix_signal_notifier())
+        , signal_notifier_(get_posix_signal_notifier())
 #endif
-    , term_size_(tc::get_terminal_size())
+        , term_size_(tc::get_terminal_size())
+        , writer_(os)
 {
     instance_ = this;
     // disable line wrapping
     writer().write(tc::format<tc::def::reset_mode>(tc::dec_mode::autowrap));
 }
+
 
 
 void application::queue_event(std::shared_ptr<event> e, std::weak_ptr<widget> destination)

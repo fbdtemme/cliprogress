@@ -5,6 +5,7 @@
 #include <string>
 #include <any>
 #include <atomic>
+#include <ranges>
 
 #include "cliprogressbar/widget.hpp"
 #include "cliprogressbar/size_policy.hpp"
@@ -15,6 +16,8 @@
 #include <termcontrol/detail/display_width.hpp>
 
 namespace cliprogress {
+
+namespace rng = std::ranges;
 
 /// Throbber which calls a callback function every time the animation is updated.
 class animation : public widget
@@ -66,7 +69,9 @@ public:
 
     std::size_t natural_size() const override
     {
-        auto r = termcontrol::display_width(current_frame());
+        current_frame_buffer_.clear();
+        rng::copy(current_frame(), std::back_inserter(current_frame_buffer_));
+        auto r = termcontrol::display_width(current_frame_buffer_);
         return r;
     }
 
@@ -109,6 +114,7 @@ public:
 
 private:
     std::span<const std::string_view> frames_;
+    mutable std::string current_frame_buffer_ {};
     std::size_t frame_index_ = 0;
     detail::periodic_timer timer_;
     mutable std::mutex mutex_;

@@ -11,7 +11,10 @@ class terminal_writer_transaction;
 class terminal_writer
 {
 public:
-    terminal_writer() = default;
+    explicit terminal_writer(std::ostream& output = std::cout, std::istream& input = std::cin)
+        : output_(output)
+        , input_(input)
+    {}
 
     terminal_writer(const terminal_writer& other) noexcept = default;
     terminal_writer& operator=(const terminal_writer& other) noexcept = default;

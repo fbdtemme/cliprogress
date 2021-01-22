@@ -25,6 +25,8 @@ class application
 public:
     application();
 
+    application(std::ostream& os);
+
     void queue_event(std::shared_ptr<event> e, std::weak_ptr<widget> receiver = {});
 
     /// Enter main event loop.s
