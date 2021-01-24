@@ -22,7 +22,7 @@ int main()
 {
     std::setlocale(LC_ALL, "");
     using namespace std::chrono_literals;
-    cliprogress::application app {std::cerr};
+    cliprogress::application app {};
 
     cliprogress::progress_indicator indicator(&app);
     indicator.set_progress_range(0, 100);

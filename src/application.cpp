@@ -156,6 +156,7 @@ application::~application() noexcept {
     // restore line wrapping
     writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::autowrap));
     writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::cursor_visible));
+    writer().flush();
 }
 
 void application::register_signals()
