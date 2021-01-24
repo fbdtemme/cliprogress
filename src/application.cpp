@@ -24,7 +24,9 @@ application::application(std::ostream& os)
 {
     instance_ = this;
     // disable line wrapping
-    writer().write(tc::format<tc::def::reset_mode>(tc::dec_mode::autowrap));
+    writer().write(tc::format(tc::ecma48::reset_mode, tc::dec_mode::autowrap));
+    // disable visible cursor
+    writer().write(tc::format(tc::ecma48::reset_mode, tc::dec_mode::cursor_visible));
 }
 
 
@@ -152,7 +154,8 @@ application::~application() noexcept {
 #endif
 
     // restore line wrapping
-    writer().write(tc::format<tc::def::set_mode>(tc::dec_mode::autowrap));
+    writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::autowrap));
+    writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::cursor_visible));
 }
 
 void application::register_signals()

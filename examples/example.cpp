@@ -16,7 +16,7 @@ int main()
 {
     std::setlocale(LC_ALL, "");
     using namespace std::chrono_literals;
-    cliprogress::application app {};
+    cliprogress::application app {std::cerr};
 
     auto box = std::make_shared<cliprogress::box_layout>();
     auto bar = std::make_shared<cliprogress::bar>(
