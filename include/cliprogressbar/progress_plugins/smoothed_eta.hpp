@@ -35,19 +35,25 @@ public:
         previous_eta_ = eta_;
         // lineair interpolation from the current rate
         auto eta_guess = double_duration((progress.max_value() - progress.value()) / rate);
+        auto previous_eta = std::chrono::duration_cast<double_duration>(previous_eta_);
+        auto eta_difference = eta_guess.count() - previous_eta.count();
 
         // Apply smoothing only if the new time isn't a huge change -- e.g., if the
         // new time is more than half of the previous time; this is useful for slow starts.
         if (eta_guess > (previous_eta_ / 3) && previous_eta_ > 0s) {
             // Apply hysteresis to favor downward over upward swings
             // 30% of down and 10% of up (exponential smoothing)
-            auto previous_eta = std::chrono::duration_cast<double_duration>(previous_eta_);
-            auto diff = eta_guess.count() - previous_eta.count();
-            eta_guess = previous_eta + double_duration((diff < 0 ? 0.3 : 0.1) * diff);
+            eta_guess = previous_eta + double_duration((eta_difference < 0 ? 0.3 : 0.1) * eta_difference);
+        }
+
+        // Provide forward progress for small swings
+        if (std::abs(eta_difference) < 0.1 * eta_guess.count() && eta_guess >= double_duration(5)) {
+            eta_guess = previous_eta - (progress.time_elapsed() - previous_time_elapsed_);
         }
 
         eta_guess = std::max(double_duration(0), eta_guess);
         eta_ = std::chrono::duration_cast<duration>(eta_guess);
+        previous_time_elapsed_ = progress.time_elapsed();
 
         // only return actual eta if the burn in period is over.
         if (!burn_in_period_over_ && (progress.time_elapsed() > burn_in_period_ )) [[likely]] {
@@ -66,6 +72,7 @@ public:
 
 private:
     duration previous_eta_;
+    duration previous_time_elapsed_;
     duration eta_;
     std::chrono::milliseconds burn_in_period_;
     bool burn_in_period_over_;
