@@ -68,6 +68,7 @@ if (CLIPROGRESS_BUILD_TESTING)
                 GIT_TAG        v2.x
         )
         FetchContent_MakeAvailable(Catch2)
-        set(CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib" ${CMAKE_MODULE_PATH})
+        list(APPEND CMAKE_MODULE_PATH "${Catch2_SOURCE_DIR}/contrib")
+        set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} PARENT_SCOPE)
     endif()
 endif()

@@ -151,6 +151,7 @@ application::~application() noexcept {
 #if defined(_WIN32) || defined(__MINGW64__)
 #else
     signal_notifier_->disconnect(SIGWINCH);
+    signal_notifier_->disconnect(SIGINT);
 #endif
 
     // restore line wrapping
@@ -164,6 +165,7 @@ void application::register_signals()
 #if defined(_WIN32) || defined(__MINGW64__)
 #else
     signal_notifier_->connect(SIGWINCH, [this](){ this->resize_handler(); });
+    signal_notifier_->connect(SIGINT, [this](){ this->sigint_handler(); });
 #endif
 }
 
@@ -172,12 +174,23 @@ void application::resize_handler()
     auto old_size = term_size_.load(std::memory_order_relaxed);
     auto new_size = termcontrol::get_terminal_size();
     term_size_.store(new_size, std::memory_order_relaxed);
-
-//    for_each_widget([&](auto& w) { w->allocate_size(new_size.cols); } );
-
     auto e = event_item { .value = std::make_shared<resize_event>(new_size, old_size) };
     event_queue_.push(std::move(e));
 }
+
+
+void application::sigint_handler()
+{
+    request_stop();
+
+    // restore line wrapping
+    writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::autowrap));
+    writer().write(tc::format(tc::ecma48::set_mode, tc::dec_mode::cursor_visible));
+    writer().flush();
+
+    std::exit(EXIT_SUCCESS);
+}
+
 
 void application::process_event(event_item& item)
 {
@@ -227,8 +240,6 @@ void application::event_loop()
         process_event(item);
     }
 }
-
-
 
 void application::register_widget_id(std::size_t id, std::weak_ptr<widget> root)
 {

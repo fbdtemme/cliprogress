@@ -61,6 +61,8 @@ private:
 
     void resize_handler();
 
+    void sigint_handler();
+
     void event_loop();
 
     void process_event(event_item& item);
