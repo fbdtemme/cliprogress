@@ -75,7 +75,7 @@ private:
     duration previous_time_elapsed_;
     duration eta_;
     std::chrono::milliseconds burn_in_period_;
-    bool burn_in_period_over_;
+    bool burn_in_period_over_ = false;
 };
 
 } // namespace cliprogress

@@ -2,7 +2,7 @@
 #include <memory>
 
 
-#include "cliprogressbar/mpmcqueue.hpp"
+#include "cliprogressbar/concurrent_queue.hpp"
 #include "cliprogressbar/events/event.hpp"
 
 namespace cliprogress {
@@ -13,6 +13,6 @@ public:
     std::weak_ptr<widget> destination;
 };
 
-using event_queue = rigtorp::mpmc::Queue<event_item>;
+using event_queue = concurrent_queue<event_item>;
 
 }
