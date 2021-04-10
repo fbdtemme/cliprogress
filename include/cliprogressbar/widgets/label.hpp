@@ -51,6 +51,7 @@ public:
     {
         // check if user has provided a size override.
         if (size_) return *size_;
+        std::unique_lock lck{mutex_};
         auto text_size = termcontrol::display_width(text_);
         return text_size + (2 * border_padding_);
     }
