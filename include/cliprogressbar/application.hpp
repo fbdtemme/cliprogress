@@ -11,8 +11,7 @@
 #include "cliprogressbar/periodic_timer.hpp"
 #include "cliprogressbar/terminal_writer.hpp"
 
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
 #include "cliprogressbar/posix_signal_notifier.hpp"
 #endif
 
@@ -79,8 +78,7 @@ private:
     terminal_writer writer_ {};
     event_queue event_queue_;
 
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     std::shared_ptr<posix_signal_notifier> signal_notifier_ {};
 #endif
 

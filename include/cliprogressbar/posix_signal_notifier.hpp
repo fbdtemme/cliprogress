@@ -1,5 +1,4 @@
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
 
 #pragma once
 #include <functional>
@@ -185,4 +184,5 @@ inline std::shared_ptr<posix_signal_notifier> get_posix_signal_notifier()
 
 }
 
+#else
 #endif

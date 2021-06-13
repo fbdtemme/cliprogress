@@ -15,8 +15,7 @@ application::application()
 
 application::application(std::ostream& os)
         : event_queue_(128)
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
         , signal_notifier_(get_posix_signal_notifier())
 #endif
         , term_size_(tc::get_terminal_size())
@@ -45,8 +44,7 @@ void application::start()
     // start dispatching signals to the event queue.
 
     register_signals();
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     signal_notifier_->start();
 #endif
     auto term_size = termcontrol::get_terminal_size();
@@ -68,8 +66,7 @@ void application::start()
 // Blok until the event loop stops running
 void application::wait()
 {
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     signal_notifier_->wait();
 #endif
     if (event_loop_.joinable())
@@ -78,8 +75,7 @@ void application::wait()
 
 void application::request_stop()
 {
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     signal_notifier_->request_stop();
 #endif
     // wake the queue if blocked on waiting for next event
@@ -148,8 +144,7 @@ application::~application() noexcept {
 
     // disconnect signal notifier to make so signals handlers do not get called after the application is destroyed,
     // if another application is started that reused the same signal notifier.
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     signal_notifier_->disconnect(SIGWINCH);
     signal_notifier_->disconnect(SIGINT);
 #endif
@@ -162,8 +157,7 @@ application::~application() noexcept {
 
 void application::register_signals()
 {
-#if defined(_WIN32) || defined(__MINGW64__)
-#else
+#if defined(__linux__)
     signal_notifier_->connect(SIGWINCH, [this](){ this->resize_handler(); });
     signal_notifier_->connect(SIGINT, [this](){ this->sigint_handler(); });
 #endif
