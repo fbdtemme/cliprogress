@@ -129,7 +129,7 @@ public:
 protected:
     std::size_t id_;
     std::string name_;
-    mutable std::recursive_mutex mutex_ {};
+    mutable std::mutex mutex_ {};
 
     std::atomic_size_t position_ = 0;
     std::atomic_size_t allocated_size_ = 0;

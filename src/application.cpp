@@ -60,7 +60,7 @@ void application::start()
     });
     terminal_size_clock_.set_interval(1000ms);
     terminal_size_clock_.set_function([this]() { resize_handler(); });
-    event_loop_ = std::jthread(&application::event_loop, this);
+    event_loop_ = std::jthread(std::bind_front(&application::event_loop, this));
 }
 
 // Blok until the event loop stops running
@@ -209,7 +209,7 @@ void application::process_event(event_item& item)
 }
 
 
-void application::event_loop()
+void application::event_loop(std::stop_token stop_token)
 {
     ///
     event_item item;
@@ -217,7 +217,6 @@ void application::event_loop()
 
     frame_clock_.start();
     terminal_size_clock_.start();
-    auto stop_token = event_loop_.get_stop_token();
 
     while (!stop_token.stop_requested() && stop_token.stop_possible()) {
         event_queue_.pop(item);

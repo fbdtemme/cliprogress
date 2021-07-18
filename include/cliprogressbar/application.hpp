@@ -62,7 +62,7 @@ private:
 
     void sigint_handler();
 
-    void event_loop();
+    void event_loop(std::stop_token stop_token);
 
     void process_event(event_item& item);
 
