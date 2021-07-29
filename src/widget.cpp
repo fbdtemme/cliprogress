@@ -2,6 +2,12 @@
 #include "cliprogressbar/widget.hpp"
 #include "cliprogressbar/layout/layout_manager.hpp"
 #include <cliprogressbar/events/event.hpp>
+
+#if defined(_WIN32)
+#undef min
+#undef max
+#endif
+
 namespace cliprogress
 {
 
