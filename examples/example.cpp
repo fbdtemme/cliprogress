@@ -1,12 +1,12 @@
 
 #include <chrono>
 #include <thread>
-#include "cliprogressbar/widgets/bar.hpp"
-#include "cliprogressbar/widgets/label.hpp"
-#include "cliprogressbar/widgets/box_layout.hpp"
-#include "cliprogressbar/widgets/animation.hpp"
+#include "cliprogress/widgets/bar.hpp"
+#include "cliprogress/widgets/label.hpp"
+#include "cliprogress/widgets/box_layout.hpp"
+#include "cliprogress/widgets/animation.hpp"
 
-#include "cliprogressbar/application.hpp"
+#include "cliprogress/application.hpp"
 
 #include <iostream>
 #include <sstream>

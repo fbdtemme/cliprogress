@@ -16,12 +16,16 @@ find_package(gsl-lite CONFIG REQUIRED)
 find_package(PalSigslot CONFIG REQUIRED)
 find_package(termcontrol CONFIG REQUIRED)
 
-add_library(cliprogress)
+add_library(cliprogress
+    src/application.cpp
+    src/widget.cpp
+)
+
 add_library(cliprogress::cliprogress ALIAS cliprogress)
 
 target_compile_features(cliprogress PUBLIC cxx_std_20)
 target_include_directories(cliprogress PUBLIC
-        $<INSTALL_INTERFACE:include>
+        $<INSTALL_INTERFACE:include/cliprogress>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 
 
@@ -33,7 +37,6 @@ target_link_libraries(cliprogress
         fmt::fmt
 )
 
-add_subdirectory(src)
 
 if (CLIPROGRESS_BUILD_TESTS)
     add_subdirectory(tests)

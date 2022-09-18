@@ -1,4 +1,4 @@
-#include <cliprogressbar/application.hpp>
+#include <cliprogress/application.hpp>
 #include <chrono>
 #include <termcontrol/detail/definitions.hpp>
 #include <termcontrol/detail/format.hpp>

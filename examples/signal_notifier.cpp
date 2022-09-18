@@ -2,7 +2,7 @@
 #include <chrono>
 #include <csignal>
 #include <thread>
-#include "cliprogressbar/posix_signal_notifier.hpp"
+#include "cliprogress/posix_signal_notifier.hpp"
 
 
 int main()

@@ -1,7 +1,7 @@
 
-#include "cliprogressbar/widget.hpp"
-#include "cliprogressbar/layout/layout_manager.hpp"
-#include <cliprogressbar/events/event.hpp>
+#include "cliprogress/widget.hpp"
+#include "cliprogress/layout/layout_manager.hpp"
+#include <cliprogress/events/event.hpp>
 
 #if defined(_WIN32)
 #undef min

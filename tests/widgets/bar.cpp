@@ -1,6 +1,6 @@
 //#include <catch2/catch_all.hpp>
 //
-//#include "cliprogressbar/widgets/bar.hpp"
+//#include "cliprogress/widgets/bar.hpp"
 //#include <iostream>
 //#include <sstream>
 //

@@ -3,8 +3,8 @@
 //
 //#include <chrono>
 //#include <thread>
-//#include "cliprogressbar/widgets/bar.hpp"
-//#include "cliprogressbar/application.hpp"
+//#include "cliprogress/widgets/bar.hpp"
+//#include "cliprogress/application.hpp"
 //
 //#include <iostream>
 //#include <sstream>

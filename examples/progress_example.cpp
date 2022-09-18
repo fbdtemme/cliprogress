@@ -1,13 +1,13 @@
 #include <chrono>
 #include <thread>
-#include "cliprogressbar/widgets/bar.hpp"
-#include "cliprogressbar/widgets/label.hpp"
-#include "cliprogressbar/widgets/animation.hpp"
+#include "cliprogress/widgets/bar.hpp"
+#include "cliprogress/widgets/label.hpp"
+#include "cliprogress/widgets/animation.hpp"
 
-#include "cliprogressbar/progress_indicator.hpp"
-#include <cliprogressbar/progress_plugins/ewma_rate.hpp>
-#include <cliprogressbar/progress_plugins/smoothed_eta.hpp>
-#include "cliprogressbar/formatters.hpp"
+#include "cliprogress/progress_indicator.hpp"
+#include <cliprogress/progress_plugins/ewma_rate.hpp>
+#include <cliprogress/progress_plugins/smoothed_eta.hpp>
+#include "cliprogress/formatters.hpp"
 
 #include <iostream>
 #include <sstream>

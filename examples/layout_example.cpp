@@ -3,11 +3,11 @@
 #include <chrono>
 #include <thread>
 
-#include "cliprogressbar/widgets/label.hpp"
-#include "cliprogressbar/widgets/animation.hpp"
-#include "cliprogressbar/widgets/bar.hpp"
+#include "cliprogress/widgets/label.hpp"
+#include "cliprogress/widgets/animation.hpp"
+#include "cliprogress/widgets/bar.hpp"
 
-#include "cliprogressbar/layout/box_layout_manager.hpp"
+#include "cliprogress/layout/box_layout_manager.hpp"
 
 int main()
 {
