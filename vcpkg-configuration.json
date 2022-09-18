@@ -2,7 +2,7 @@
   "registries": [
     {
       "kind": "git",
-      "baseline": "548073cff314eb31132a122e876a5d385648c773",
+      "baseline": "50270f69fab670cff063eb3212d65058cb353704",
       "repository": "https://github.com/fbdtemme/vcpkg-registry",
       "packages": [
         "termcontrol"
