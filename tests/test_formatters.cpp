@@ -1,7 +1,7 @@
 //
 // Created by fbdtemme on 5/7/20.
 //
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 #include "cliprogress/detail/formatters.hpp"
 
 using namespace cliprogress;

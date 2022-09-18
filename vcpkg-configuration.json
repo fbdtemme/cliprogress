@@ -1,0 +1,12 @@
+{
+  "registries": [
+    {
+      "kind": "git",
+      "baseline": "548073cff314eb31132a122e876a5d385648c773",
+      "repository": "https://github.com/fbdtemme/vcpkg-registry",
+      "packages": [
+        "termcontrol"
+      ]
+    }
+  ]
+}

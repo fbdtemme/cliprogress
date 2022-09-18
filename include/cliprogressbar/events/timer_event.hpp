@@ -14,13 +14,14 @@ public:
         , timer_id_(timer_id)
     {}
 
+    [[nodiscard]]
     std::size_t timer_id() const
     {
         return timer_id_;
     }
 
 private:
-    int timer_id_;
+    std::size_t timer_id_;
 };
 
 }

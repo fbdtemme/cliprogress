@@ -1,8 +1,3 @@
-//
-// Created by fbdtemme on 7/10/20.
-//
-
-
 #include <chrono>
 #include <thread>
 #include "cliprogressbar/widgets/bar.hpp"

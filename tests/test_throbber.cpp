@@ -2,7 +2,7 @@
 //// Created by fbdtemme on 26/01/2020.
 ////
 //
-//#include <catch2/catch.hpp>
+//#include <catch2/catch_all.hpp>
 //#include "cliprogress/throbber.hpp"
 //#include <chrono>
 //

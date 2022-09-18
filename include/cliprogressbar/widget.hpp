@@ -155,7 +155,7 @@ private:
 
 inline std::ostream& operator<<(std::ostream& os, widget& w)
 {
-    terminal_writer writer{};
+    terminal_writer writer{os};
     w.render(writer);
     return os;
 }

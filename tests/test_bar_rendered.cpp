@@ -2,7 +2,7 @@
 //// Created by fbdtemme on 3/14/20.
 ////
 //
-//#include <catch2/catch.hpp>
+//#include <catch2/catch_all.hpp>
 //
 //#include <cliprogress/detail/bar.hpp>
 //#include <cliprogress/presets.hpp>

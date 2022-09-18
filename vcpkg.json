@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "cliprogress",
+  "version": "0.2.0",
+  "builtin-baseline": "9259a0719d94c402aae2ab7975bc096afdec15df",
+  "dependencies": [
+    {
+      "name": "fmt",
+      "version>=": "8.1.1#2"
+    },
+    {
+      "name": "gsl-lite"
+    },
+    {
+      "name": "palsigslot"
+    },
+    {
+      "name": "termcontrol"
+    }
+  ],
+  "features": {
+    "tests": {
+      "description": "Build tests",
+      "dependencies": [
+        {
+          "name": "catch2",
+          "version>=": "3.0.1"
+        }
+      ]
+    }
+  }
+}

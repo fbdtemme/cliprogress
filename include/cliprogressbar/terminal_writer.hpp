@@ -56,6 +56,10 @@ public:
     template <typename T>
     friend terminal_writer& operator<<(terminal_writer& writer, T&& value);
 
+    ~terminal_writer() noexcept {
+        flush();
+    }
+
 private:
     std::reference_wrapper<std::ostream> output_ = std::cout;
     std::reference_wrapper<std::istream> input_  = std::cin;
