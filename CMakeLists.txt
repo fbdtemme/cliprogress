@@ -43,7 +43,11 @@ if (CLIPROGRESS_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
+
 if (CLIPROGRESS_INSTALL)
+    include(GNUInstallDirs)
+    include(CMakePackageConfigHelpers)
+
     set(cliprogress_target                  cliprogress)
     set(cliprogress_cmake_install_dir       ${CMAKE_INSTALL_LIBDIR}/cmake/cliprogress)
     set(cliprogress_version_config          ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake)
@@ -53,7 +57,6 @@ if (CLIPROGRESS_INSTALL)
     set(cliprogress_targets_file            ${cliprogress_targets_export_name}.cmake)
     set(cliprogress_include_build_dir       ${PROJECT_SOURCE_DIR}/include/)
     set(cliprogress_namespace               ${PROJECT_NAME})
-    include(CMakePackageConfigHelpers)
 
     write_basic_package_version_file(
             ${cliprogress_version_config}
@@ -90,5 +93,4 @@ if (CLIPROGRESS_INSTALL)
             FILE ${cliprogress_targets_file}
             NAMESPACE ${cliprogress_namespace}::
             DESTINATION ${cliprogress_cmake_install_dir})
-
 endif()
