@@ -74,7 +74,8 @@ private:
     }
 
     std::jthread event_loop_;
-    std::atomic<termcontrol::terminal_size> term_size_;
+    termcontrol::terminal_size term_size_;
+    std::atomic_ref<termcontrol::terminal_size> term_size_ref_;
     terminal_writer writer_ {};
     event_queue event_queue_;
 

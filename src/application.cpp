@@ -19,6 +19,7 @@ application::application(std::ostream& os)
         , signal_notifier_(get_posix_signal_notifier())
 #endif
         , term_size_(tc::get_terminal_size())
+        , term_size_ref_(term_size_)
         , writer_(os)
 {
     instance_ = this;
@@ -89,7 +90,7 @@ void application::request_stop()
 std::weak_ptr<widget> application::add_widget(std::shared_ptr<widget> w)
 {
     // all root widgets get full terminal width
-    w->allocate_size(term_size_.load(std::memory_order_relaxed).cols);
+    w->allocate_size(term_size_ref_.load(std::memory_order_relaxed).cols);
 
     std::shared_ptr<widget> wc = w;
     {
@@ -165,9 +166,9 @@ void application::register_signals()
 
 void application::resize_handler()
 {
-    auto old_size = term_size_.load(std::memory_order_relaxed);
+    auto old_size = term_size_ref_.load(std::memory_order_relaxed);
     auto new_size = termcontrol::get_terminal_size();
-    term_size_.store(new_size, std::memory_order_relaxed);
+    term_size_ref_.store(new_size, std::memory_order_relaxed);
     auto e = event_item { .value = std::make_shared<resize_event>(new_size, old_size) };
     event_queue_.push(std::move(e));
 }
