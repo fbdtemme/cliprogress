@@ -7,7 +7,7 @@
 #include "cliprogress/events/event.hpp"
 namespace cliprogress
 {
-struct widget;
+class widget;
 
 enum class child_action
 {
