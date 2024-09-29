@@ -1,5 +1,7 @@
 #include <chrono>
 #include <thread>
+
+#include <fmt/format.h>
 #include "cliprogress/widgets/bar.hpp"
 #include "cliprogress/widgets/label.hpp"
 #include "cliprogress/widgets/animation.hpp"
@@ -11,7 +13,6 @@
 
 #include <iostream>
 #include <sstream>
-
 
 int main()
 {

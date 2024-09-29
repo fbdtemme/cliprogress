@@ -23,6 +23,7 @@ add_library(cliprogress
 
 add_library(cliprogress::cliprogress ALIAS cliprogress)
 
+set(CMAKE_CXX_STANDARD 20)
 target_compile_features(cliprogress PUBLIC cxx_std_20)
 target_include_directories(cliprogress PUBLIC
         $<INSTALL_INTERFACE:include/cliprogress>

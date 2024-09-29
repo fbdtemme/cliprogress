@@ -1,4 +1,4 @@
-
+#include <ranges>
 #include "cliprogress/widget.hpp"
 #include "cliprogress/layout/layout_manager.hpp"
 #include <cliprogress/events/event.hpp>

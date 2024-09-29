@@ -5,7 +5,11 @@
       "name": "common",
       "generator": "Ninja Multi-Config",
       "environment": {
-        "VCPKG_ROOT": "${sourceDir}/vcpkg"
+        "VCPKG_ROOT": "${sourceDir}/vcpkg",
+        "VCPKG_DISABLE_METRICS": "ON"
+      },
+      "cacheVariables": {
+        "CMAKE_MAKE_PROGRAM": "ninja"
       },
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
       "hidden": true
@@ -15,7 +19,7 @@
       "hidden": true,
       "cacheVariables": {
         "VCPKG_MANIFEST_FEATURES": "tests",
-        "TERMCONTROL_BUILD_TESTS": "ON"
+        "CLIPROGRESS_BUILD_TESTS": "ON"
       }
     },
     {
@@ -59,6 +63,5 @@
       "name": "windows-relwithdebinfo",
       "configurePreset": "windows",
       "configuration": "RelWithDebInfo"
-    }
   ]
 }

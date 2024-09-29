@@ -3,11 +3,16 @@
 #include <chrono>
 #include <thread>
 
+#include <fmt/format.h>
+#include "cliprogress/widgets/bar.hpp"
 #include "cliprogress/widgets/label.hpp"
 #include "cliprogress/widgets/animation.hpp"
-#include "cliprogress/widgets/bar.hpp"
 
-#include "cliprogress/layout/box_layout_manager.hpp"
+#include "cliprogress/progress_indicator.hpp"
+#include <cliprogress/progress_plugins/ewma_rate.hpp>
+#include <cliprogress/progress_plugins/smoothed_eta.hpp>
+#include "cliprogress/formatters.hpp"
+
 
 int main()
 {
